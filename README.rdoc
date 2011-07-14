@@ -1,0 +1,22 @@
+= JUnit DynamicSuite
+
+The JUnit DynamicSuite is a library used to create a dynamic Suite of
+JUnit Tests from a directory.
+The Unit Tests can be filtered dynamically by annotating the Suite with a filter.
+
+== Dependencies
+
+* {commons-lang} [http://commons.apache.org/lang/]
+* {junit} Version 4.x [http://www.junit.org/]
+
+== Usage
+
+
+
+
+== Copyright
+
+Copyright (c) 2011 Christof Schoell
+
+The files in this archive are released under the Apache 2.0 license.
+You may obtain a copy of this license under http://www.apache.org/licenses/LICENSE-2.0
