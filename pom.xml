@@ -2,13 +2,43 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.asc.junit</groupId>
-    <artifactId>dynamicsuite</artifactId>
-    <version>0.2.0-SNAPSHOT</version>
+    <groupId>com.github.cschoell</groupId>
+    <artifactId>junit-dynamicsuite</artifactId>
+    <version>0.1.1-SNAPSHOT</version>
     <packaging>jar</packaging>
 
-    <name>Dynamic Suite Runner for JUnit 4</name>
-    <url>http://maven.apache.org</url>
+    <scm>
+        <url>https://github.com/cschoell/Junit-DynamicSuite</url>
+        <connection>scm:git:git@github.com:cschoell/Junit-DynamicSuite.git</connection>
+    </scm>
+
+    <parent>
+        <groupId>org.sonatype.oss</groupId>
+        <artifactId>oss-parent</artifactId>
+        <version>7</version>
+    </parent>
+
+    <developers>
+        <developer>
+            <id>cschoell</id>
+            <name>Christof Schöll</name>
+            <email>c.schoell@gmx.net</email>
+        </developer>
+    </developers>
+
+
+    <name>JUnit Dynamic Suite</name>
+    <description>Dynamic Suite Runner for JUnit 4</description>
+
+    <url>https://github.com/cschoell/Junit-DynamicSuite</url>
+
+    <licenses>
+        <license>
+            <name>The Apache Software License, Version 2.0</name>
+            <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+            <distribution>repo</distribution>
+        </license>
+    </licenses>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -38,6 +68,24 @@
             <scope>test</scope>
         </dependency>
     </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-gpg-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>sign-artifacts</id>
+                        <phase>verify</phase>
+                        <goals>
+                            <goal>sign</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
 
 </project>
 
