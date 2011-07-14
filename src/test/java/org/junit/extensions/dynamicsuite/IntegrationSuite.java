@@ -1,6 +1,6 @@
 package org.junit.extensions.dynamicsuite;
 
-import org.junit.extensions.dynamicsuite.filter.DefaultFilter;
+import org.junit.Ignore;
 import org.junit.runner.RunWith;
 
 /**
@@ -20,10 +20,20 @@ import org.junit.runner.RunWith;
  */
 @RunWith(DynamicSuite.class)
 @DirectoryFilter(IntegrationSuite.class)
-public class IntegrationSuite extends DefaultFilter {
+public class IntegrationSuite implements TestDirectoryFilter {
+
+    @Override
+    public String getBasePath() {
+        return "target/test-classes";
+    }
 
     @Override
     public boolean include(String className) {
-        return className.endsWith("Test");
+        return className.endsWith("ITCase");
+    }
+
+    @Override
+    public boolean include(Class cls) {
+        return cls.getAnnotation(Ignore.class) == null;
     }
 }
