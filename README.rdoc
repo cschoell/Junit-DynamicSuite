@@ -6,8 +6,8 @@ The Unit Tests can be filtered dynamically by annotating the Suite with a filter
 
 == Dependencies
 
-* {commons-lang} [http://commons.apache.org/lang/]
-* {junit} Version 4.x [http://www.junit.org/]
+* {commons-lang}[http://commons.apache.org/lang/]
+* {junit}[http://www.junit.org/] Version 4.x
 
 == Usage
 
