@@ -11,7 +11,43 @@ The Unit Tests can be filtered dynamically by annotating the Suite with a filter
 
 == Usage
 
+To get your started just annotate a class with
 
+   @RunWith(DynamicSuite.class)
+   @DirectoryFilter(DefaultFilter.class)
+
+This will run all Tests ending with "Test" in the directory
+
+   target/test-classes
+
+which is specified in the DefaultFilter (method getBasePath() ).
+
+To create a custom filter you may either implement the interface TestDirectoryFilter or
+extend the DefaultFilter.
+
+=== Example
+
+You can let the dynamic suite directly implement the TestDirectoryFilter interface as shown below.
+
+    @RunWith(DynamicSuite.class)
+    @DirectoryFilter(IntegrationSuite.class)
+    public class IntegrationSuite implements TestDirectoryFilter {
+
+        @Override
+        public String getBasePath() {
+            return "target/test-classes";
+        }
+
+        @Override
+        public boolean include(String className) {
+            return className.endsWith("ITCase");
+        }
+
+        @Override
+        public boolean include(Class cls) {
+            return cls.getAnnotation(Ignore.class) == null;
+        }
+    }
 
 
 == Copyright
@@ -19,4 +55,5 @@ The Unit Tests can be filtered dynamically by annotating the Suite with a filter
 Copyright (c) 2011 Christof Schoell
 
 The files in this archive are released under the Apache 2.0 license.
+
 You may obtain a copy of this license under http://www.apache.org/licenses/LICENSE-2.0
