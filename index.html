@@ -103,11 +103,11 @@
         This is mainly an Eclipse problem since it doesn't allow you to filter your unit tests in its run configuration.<br/>
         <br/>
         To use it just create a TestSuite class and annotate it with:<br/>
-        <br/>
-        @RunWith(DynamicSuite.class)<br/>
-        @Filter(DefaultFilter.class)<br/>
-        @Directory<br/>
-        <br/>
+<pre>
+@RunWith(DynamicSuite.class)
+@Filter(DefaultFilter.class)
+@Directory
+</pre>
         You may use any class implementing the TestClassFilter interface or extending the DefaultFilter class to
         create a custom Filter for your Unit tests.<br/>
     </p>
