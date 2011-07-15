@@ -16,16 +16,24 @@ package org.junit.extensions.dynamicsuite;
  * limitations under the License.
  *
  *
- * Implement to filter Test Classes found by the DynamicSuiteRunner
+ * implement to filter test classes found by the DynamicSuite runner
  */
 public interface TestClassFilter {
 
     /**
-     *  all Classes which are found by the ClassLookup algorithm and have not been pre-filtered are
+     *  classes which are found by the ClassLookup algorithm are
      *  passed to this method for further filtering
      *
-     * @param cls all Class which has been found by the ClassLookup Mechanism
+     * @param cls classes which has been found by the class lookup Mechanism
      * @return true if it is a test class that should be included in the test suite, false otherwise
      */
     boolean include(Class cls);
+
+    /**
+     * Filters Classes (by Name) found before they get loaded by the ClassLoader
+     *
+     * @param className name of the class including its package
+     * @return true if the class should be included in the TestSuite, false otherwise
+     */
+    boolean include(String className);
 }

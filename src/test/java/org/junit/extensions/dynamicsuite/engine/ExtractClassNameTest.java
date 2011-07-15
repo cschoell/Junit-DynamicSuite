@@ -51,19 +51,19 @@ public class ExtractClassNameTest {
         this.expected = expected;
     }
 
-    private DirectoryLoader directoryLoader;
+    private DirectoryScanner directoryScanner;
 
 
     @Before
     public void setUp
             () throws Exception {
-        directoryLoader = new DirectoryLoader(new File(""));
+        directoryScanner = new DirectoryScanner(new File(""));
     }
 
     @Test
     public void testExtractClassName
             () throws Exception {
-        Assert.assertEquals(expected, directoryLoader.extractClassName(basePath, classFileName));
+        Assert.assertEquals(expected, directoryScanner.extractClassName(basePath, classFileName));
     }
 
 }

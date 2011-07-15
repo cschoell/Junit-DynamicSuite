@@ -1,6 +1,7 @@
 package org.junit.extensions.dynamicsuite;
 
 import org.junit.Ignore;
+import org.junit.extensions.dynamicsuite.suite.DynamicSuite;
 import org.junit.runner.RunWith;
 
 /**
@@ -19,13 +20,9 @@ import org.junit.runner.RunWith;
  * limitations under the License.
  */
 @RunWith(DynamicSuite.class)
-@DirectoryFilter(IntegrationSuite.class)
-public class IntegrationSuite implements TestDirectoryFilter {
-
-    @Override
-    public String getBasePath() {
-        return "target/test-classes";
-    }
+@Filter(IntegrationSuite.class)
+@Directory("target/test-classes")
+public class IntegrationSuite implements TestClassFilter {
 
     @Override
     public boolean include(String className) {

@@ -1,8 +1,6 @@
 package org.junit.extensions.dynamicsuite;
 
-import org.junit.extensions.dynamicsuite.filter.DefaultFilter;
-import org.junit.extensions.dynamicsuite.suite.DynamicSuite;
-import org.junit.runner.RunWith;
+import java.lang.annotation.*;
 
 /**
  * Copyright 2011 Christof Schoell
@@ -19,17 +17,11 @@ import org.junit.runner.RunWith;
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-@RunWith(DynamicSuite.class)
-@Filter(DynamicTestSuite.class)
-@Directory
-public class DynamicTestSuite extends DefaultFilter {
+@Retention(RetentionPolicy.RUNTIME)
+@Target(ElementType.TYPE)
+@Inherited
+public @interface Filter {
 
-    @Override
-    public boolean include(String className) {
-        return super.include(className);
-    }
+    public Class<? extends TestClassFilter> value();
 
-    public boolean include(Class cls) {
-        return super.include(cls);
-    }
 }

@@ -21,7 +21,7 @@ import java.util.List;
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-public class DirectoryLoader {
+public class DirectoryScanner implements ClassScanner {
 
     public static final String CLASS_ENDING = ".class";
 
@@ -29,12 +29,13 @@ public class DirectoryLoader {
 
     private final List<String> foundClassNames = new ArrayList<String>();
 
-    public DirectoryLoader(File basePath) {
+    public DirectoryScanner(File basePath) {
         this.basePath = basePath;
         recursiveAdd(basePath);
     }
 
-    public List<String> getClassNames() {
+    @Override
+    public List<String> listClassNames() {
         return foundClassNames;
     }
 
@@ -60,8 +61,6 @@ public class DirectoryLoader {
         className = StringUtils.replace(className, File.separator, ".");
         return className;
     }
-
-
 
 
 }

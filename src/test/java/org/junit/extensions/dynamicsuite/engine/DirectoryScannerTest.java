@@ -29,9 +29,9 @@ import static org.junit.Assert.assertTrue;
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-public class DirectoryLoaderTest {
+public class DirectoryScannerTest {
 
-    private DirectoryLoader directoryLoader;
+    private DirectoryScanner directoryScanner;
     private File basePath = new File("target" + separator + " testDirectoryLoader");
     private File outsideBasePath = new File("target" + separator + "testDirectoryLoaderOutside");
 
@@ -45,7 +45,7 @@ public class DirectoryLoaderTest {
     public void setUp() throws Exception {
         createFileStructure();
 
-        directoryLoader = new DirectoryLoader(basePath);
+        directoryScanner = new DirectoryScanner(basePath);
 
     }
 
@@ -73,27 +73,22 @@ public class DirectoryLoaderTest {
 
     @Test
     public void testClassNamesCorrectlyRead() throws Exception {
-        List<String> classNames = directoryLoader.getClassNames();
+        List<String> classNames = directoryScanner.listClassNames();
         int expectedFileCount = 0;
         for (String[] testFile : testFileList) {
             String path = testFile[0];
             String name = testFile[1];
             if (StringUtils.isNotBlank(name)) {
                 String expected  = toClassName(path, name);
-                assertTrue("ClassName was not loaded by DirectoryLoader: " + expected, classNames.contains(expected));
+                assertTrue("ClassName was not loaded by DirectoryScanner: " + expected, classNames.contains(expected));
                 expectedFileCount++;
             }
         }
-        assertEquals(expectedFileCount, directoryLoader.getClassNames().size());
+        assertEquals(expectedFileCount, directoryScanner.listClassNames().size());
     }
 
     private String toClassName(String path, String name) {
         return StringUtils.replace(path, separator, ".") + "." + StringUtils.removeEnd(name, ".class");
     }
 
-    class TestDirectoryLoader extends DirectoryLoader {
-        public TestDirectoryLoader() {
-            super(new File(""));
-        }
-    }
 }

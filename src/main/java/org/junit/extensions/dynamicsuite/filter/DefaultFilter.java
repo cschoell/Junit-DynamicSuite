@@ -1,6 +1,6 @@
 package org.junit.extensions.dynamicsuite.filter;
 
-import org.junit.extensions.dynamicsuite.TestDirectoryFilter;
+import org.junit.extensions.dynamicsuite.TestClassFilter;
 
 /**
  * Copyright 2011 Christof Schoell
@@ -17,11 +17,7 @@ import org.junit.extensions.dynamicsuite.TestDirectoryFilter;
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-public class DefaultFilter implements TestDirectoryFilter {
-
-    public String getBasePath() {
-        return "target/test-classes";
-    }
+public class DefaultFilter implements TestClassFilter {
 
     public boolean include(String className) {
         return className.endsWith("Test");
