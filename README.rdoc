@@ -43,11 +43,6 @@ You can let the dynamic suite directly implement the TestClassFilter interface a
     public class IntegrationSuite implements TestDirectoryFilter {
 
         @Override
-        public String getBasePath() {
-            return "target/test-classes";
-        }
-
-        @Override
         public boolean include(String className) {
             return className.endsWith("ITCase");
         }
