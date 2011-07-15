@@ -35,11 +35,11 @@ extend the DefaultFilter.
 
 === Example
 
-You can let the dynamic suite directly implement the TestDirectoryFilter interface as shown below.
+You can let the dynamic suite directly implement the TestClassFilter interface as shown below.
 
     @RunWith(DynamicSuite.class)
     @Filter(IntegrationSuite.class)
-    @Directory("testbin")
+    @Directory("test/out")
     public class IntegrationSuite implements TestDirectoryFilter {
 
         @Override
