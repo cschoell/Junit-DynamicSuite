@@ -10,6 +10,7 @@
     <scm>
         <url>https://github.com/cschoell/Junit-DynamicSuite</url>
         <connection>scm:git:git@github.com:cschoell/Junit-DynamicSuite.git</connection>
+        <developerConnection>scm:git:git@github.com:cschoell/Junit-DynamicSuite.git</developerConnection>
     </scm>
 
     <parent>
