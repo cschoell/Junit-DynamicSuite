@@ -46,7 +46,6 @@ public class ClassPathScannerTest {
     public void testLoadFromLibrary() throws Exception {
         List<String> classes = loadClasses(true);
         assertTrue(classes.contains(StringUtils.class.getName()));
-        assertTrue(classes.contains(String.class.getName()));
     }
 
     private List<String> loadClasses(boolean includeJars) {
