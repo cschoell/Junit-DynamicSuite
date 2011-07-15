@@ -14,15 +14,23 @@ The Unit Tests can be filtered dynamically by annotating the Suite with a filter
 To get your started just annotate a class with
 
    @RunWith(DynamicSuite.class)
-   @DirectoryFilter(DefaultFilter.class)
+   @Filter(DefaultFilter.class)
+   @Directory
 
 This will run all Tests ending with "Test" in the directory
 
    target/test-classes
 
-which is specified in the DefaultFilter (method getBasePath() ).
+which is specified as default in the Directory Annotation.
 
-To create a custom filter you may either implement the interface TestDirectoryFilter or
+Instead of using @Directory you might aswell use
+
+   @ClassPath(includeJars = true)
+
+which scans the ClassPath for test classes.
+The Parameter includeJars allows you to control wether to scan the jars on the classpath (default false - only directories).
+
+To create a custom filter you may either implement the interface TestClassFilter or
 extend the DefaultFilter.
 
 === Example
@@ -30,7 +38,8 @@ extend the DefaultFilter.
 You can let the dynamic suite directly implement the TestDirectoryFilter interface as shown below.
 
     @RunWith(DynamicSuite.class)
-    @DirectoryFilter(IntegrationSuite.class)
+    @Filter(IntegrationSuite.class)
+    @Directory("testbin")
     public class IntegrationSuite implements TestDirectoryFilter {
 
         @Override
