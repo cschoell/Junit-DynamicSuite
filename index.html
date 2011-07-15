@@ -98,7 +98,8 @@
         Dynamically run all JUnit Tests in Directories or on the Classpath
     </div>
 
-    <p>The Dynamic Suite Runner exists to solve the problem of only running a filtered set of Unit Tests in your IDE.<br/>
+    <p>The Dynamic Suite Runner exists to solve the problem of only running a filtered set of Unit Tests in your
+        IDE.<br/>
         This is mainly an Eclipse problem since it doesn't allow you to filter your unit tests in its run configuration.<br/>
         <br/>
         To use it just create a TestSuite class and annotate it with:<br/>
@@ -107,28 +108,29 @@
         @Filter(DefaultFilter.class)<br/>
         @Directory<br/>
         <br/>
-        You may use any class implementing the TestDirectoryFilter interface or extending the DefaultFilter class to
+        You may use any class implementing the TestClassFilter interface or extending the DefaultFilter class to
         create a custom Filter for your Unit tests.<br/>
     </p>
 
     <h2>Dependencies</h2>
-
-    <p>Tested with junit 4.8.2
-
-        Otherwise apache commons-lang is needed on the classpath.<br/>
-    </p>
+    <ul>
+        <li>junit 4.x (tested with 4.8.2)</li>
+        <li>commons-lang</li>
+    </ul>
 
     <h2>Install</h2>
 
     <p>
-        The library is available via download on github or you can add it as maven dependency (central maven repository).<br/>
-<br/>
-        &lt;dependency&gt;<br/>
-            &lt;groupId&gt;com.github.cschoell&lt;/groupId&gt;<br/>
-            &lt;artifactId&gt;junit-dynamicsuite&lt;/artifactId&gt;<br/>
-            &lt;version&gt;0.2.0&lt;/version&gt;<br/>
-        &lt;/dependency&gt;<br/>
-
+        The library is available via download on github or you can add it as maven dependency (central maven
+        repository).<br/>
+        <br/>
+        <pre>
+    &lt;dependency&gt;<br/>
+    &lt;groupId&gt;com.github.cschoell&lt;/groupId&gt;<br/>
+    &lt;artifactId&gt;junit-dynamicsuite&lt;/artifactId&gt;<br/>
+    &lt;version&gt;0.2.0&lt;/version&gt;<br/>
+    &lt;/dependency&gt;<br/>
+        </pre>
 
 
     </p>
@@ -153,9 +155,10 @@
         <a href="http://github.com/cschoell/Junit-DynamicSuite/tarball/master">tar</a> formats.
     </p>
 
-    <p>You can also clone the project with <a href="http://git-scm.com">Git</a>
+    <p>
+        You can also clone the project with <a href="http://git-scm.com">Git</a>
         by running:
-    <pre>$ git clone git://github.com/cschoell/Junit-DynamicSuite</pre>
+        <pre>$ git clone git://github.com/cschoell/Junit-DynamicSuite</pre>
     </p>
 
     <div class="footer">
