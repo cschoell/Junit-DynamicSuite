@@ -21,6 +21,14 @@ package org.junit.extensions.dynamicsuite;
 public interface TestClassFilter {
 
     /**
+     * Filters Classes (by Name) found before they get loaded by the ClassLoader
+     *
+     * @param className name of the class including its package
+     * @return true if the class should be included in the TestSuite, false otherwise
+     */
+    boolean include(String className);
+
+    /**
      *  classes which are found by the ClassLookup algorithm are
      *  passed to this method for further filtering
      *
@@ -28,12 +36,4 @@ public interface TestClassFilter {
      * @return true if it is a test class that should be included in the test suite, false otherwise
      */
     boolean include(Class cls);
-
-    /**
-     * Filters Classes (by Name) found before they get loaded by the ClassLoader
-     *
-     * @param className name of the class including its package
-     * @return true if the class should be included in the TestSuite, false otherwise
-     */
-    boolean include(String className);
 }
