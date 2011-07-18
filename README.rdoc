@@ -62,6 +62,7 @@ or include it in Maven:
         <groupId>com.github.cschoell</groupId>
         <artifactId>junit-dynamicsuite</artifactId>
         <version>0.2.0</version>
+        <scope>test</scope>
     </dependency>
 
 == Copyright
