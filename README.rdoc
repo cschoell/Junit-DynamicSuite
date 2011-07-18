@@ -8,6 +8,7 @@ The Unit Tests can be filtered dynamically by annotating the Suite with a filter
 
 * {commons-lang}[http://commons.apache.org/lang/]
 * {junit}[http://www.junit.org/] Version 4.x
+* java >= 1.6
 
 == Usage
 
