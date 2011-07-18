@@ -56,7 +56,7 @@ You can let the dynamic suite directly implement the TestClassFilter interface a
 == Installation
 
 Either include the library directly by downloading it {here from github}[https://github.com/downloads/cschoell/Junit-DynamicSuite/junit-dynamicsuite-0.2.0.jar]
-or include it in Maven:
+or include it in Maven (from Maven Central Repository):
 
     <dependency>
         <groupId>com.github.cschoell</groupId>
