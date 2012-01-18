@@ -110,7 +110,7 @@ public class ClassPathScanner implements ClassScanner {
 
     private JarFile loadJarFile(File jarFile) {
         try {
-            URL jarURL = new URL ("file:/" + jarFile.getCanonicalPath ());
+            URL jarURL = new URL ("file:" + jarFile.getCanonicalPath ());
             jarURL = new URL("jar:" + jarURL.toExternalForm () + "!/");
 			JarURLConnection conn = (JarURLConnection) jarURL.openConnection ();
 			return conn.getJarFile();
