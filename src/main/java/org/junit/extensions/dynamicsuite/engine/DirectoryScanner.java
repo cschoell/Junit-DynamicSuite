@@ -48,8 +48,10 @@ public class DirectoryScanner implements ClassScanner {
         } else {
             String basePathName = basePath.getAbsolutePath();
             String className = current.getAbsolutePath();
-            className = extractClassName(basePathName, className);
-            foundClassNames.add(className);
+            if (className.toLowerCase().endsWith(".class")) {
+                className = extractClassName(basePathName, className);
+                foundClassNames.add(className);
+            }
         }
     }
 
