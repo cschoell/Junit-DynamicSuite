@@ -62,7 +62,7 @@ or include it in Maven (from Maven Central Repository):
     <dependency>
         <groupId>com.github.cschoell</groupId>
         <artifactId>junit-dynamicsuite</artifactId>
-        <version>0.2.0</version>
+        <version>0.2.1</version>
         <scope>test</scope>
     </dependency>
 
