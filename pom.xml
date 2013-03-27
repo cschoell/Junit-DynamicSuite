@@ -3,7 +3,7 @@
 
     <groupId>com.github.cschoell</groupId>
     <artifactId>junit-dynamicsuite</artifactId>
-    <version>0.2.2-SNAPSHOT</version>
+    <version>0.2.2</version>
     <packaging>jar</packaging>
 
     <scm>
