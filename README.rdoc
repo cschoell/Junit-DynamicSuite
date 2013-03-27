@@ -68,7 +68,7 @@ or include it in Maven (from Maven Central Repository):
 
 == Copyright
 
-Copyright (c) 2011 Christof Schoell
+Copyright (c) 2013 Christof Schoell
 
 The files in this archive are released under the Apache 2.0 license.
 
