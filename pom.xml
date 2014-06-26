@@ -74,10 +74,30 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-compiler-plugin</artifactId>
+        <version>2.3.2</version>
         <configuration>
           <source>1.5</source>
           <target>1.5</target>
         </configuration>
+      </plugin>
+      
+      <plugin>
+		<groupId>org.apache.maven.plugins</groupId>
+		<artifactId>maven-jar-plugin</artifactId>
+		<version>2.4</version>
+		<configuration>
+	  	<archive>
+	  	  <manifestEntries>
+	  		<Bundle-ManifestVersion>2</Bundle-ManifestVersion>
+			<Bundle-Name>JUnit Dynamicsuite</Bundle-Name>
+			<Bundle-SymbolicName>org.junit.extensions.dynamicsuite</Bundle-SymbolicName>
+			<Bundle-Version>0.2.3.qualifier</Bundle-Version>
+			<Bundle-Vendor>Christof Schoell</Bundle-Vendor>
+			<Bundle-RequiredExecutionEnvironment>JavaSE-1.6</Bundle-RequiredExecutionEnvironment>
+			<Export-Package>org.junit.extensions.dynamicsuite, org.junit.extensions.dynamicsuite.suite, org.junit.extensions.dynamicsuite.filter</Export-Package>
+		  </manifestEntries>
+	  	</archive>
+		</configuration>
       </plugin>
     </plugins>
   </build>
