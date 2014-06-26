@@ -38,6 +38,8 @@ public class DirectoryScannerTest {
     private String[][] testFileList = new String[][]{
             {"abc" + separator + "def", "filename.class"},
             {"abc" + separator + "def", "anothername.class"},
+            {"abc" + separator + "def", "SomeClass.java"},
+            {"abc" + separator + "def", "AnotherClass.java"},
             {"empty", ""}
     };
 
@@ -88,7 +90,7 @@ public class DirectoryScannerTest {
     }
 
     private String toClassName(String path, String name) {
-        return StringUtils.replace(path, separator, ".") + "." + StringUtils.removeEnd(name, ".class");
+        return StringUtils.replace(path, separator, ".") + "." + StringUtils.removeEnd(StringUtils.removeEnd(name, ".class"), ".java");
     }
 
 }
