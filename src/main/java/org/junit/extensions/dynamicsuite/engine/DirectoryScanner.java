@@ -23,7 +23,8 @@ import java.util.List;
  */
 public class DirectoryScanner implements ClassScanner {
 
-    public static final String CLASS_ENDING = ".class";
+	public static final String CLASS_ENDING = ".class";
+    public static final String SOURCE_ENDING = ".java";
 
     private final File basePath;
 
@@ -48,7 +49,8 @@ public class DirectoryScanner implements ClassScanner {
         } else {
             String basePathName = basePath.getAbsolutePath();
             String className = current.getAbsolutePath();
-            if (className.toLowerCase().endsWith(".class")) {
+            String classNameLc = className.toLowerCase();
+			if (classNameLc.endsWith(CLASS_ENDING) || classNameLc.endsWith(SOURCE_ENDING)) {
                 className = extractClassName(basePathName, className);
                 foundClassNames.add(className);
             }
@@ -60,6 +62,7 @@ public class DirectoryScanner implements ClassScanner {
         className = StringUtils.removeStart(className, basePath);
         className = StringUtils.removeStart(className, File.separator);
         className = StringUtils.removeEnd(className, CLASS_ENDING);
+        className = StringUtils.removeEnd(className, SOURCE_ENDING);
         className = StringUtils.replace(className, File.separator, ".");
         return className;
     }
