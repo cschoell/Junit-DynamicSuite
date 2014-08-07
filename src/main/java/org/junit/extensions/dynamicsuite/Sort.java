@@ -1,10 +1,9 @@
 package org.junit.extensions.dynamicsuite;
 
-import org.junit.extensions.dynamicsuite.suite.DynamicSuite;
-import org.junit.runner.RunWith;
+import java.lang.annotation.*;
 
 /**
- * Copyright 2011 Christof Schoell
+ * Copyright 2014 Christof Schoell
  * <p/>
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,20 +16,13 @@ import org.junit.runner.RunWith;
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
+ *
  */
-@RunWith(DynamicSuite.class)
-@Filter(IntegrationSuite.class)
-@Directory("target/test-classes")
-@Sort(SortBy.TESTNAME)
-public class IntegrationSuite implements TestClassFilter {
+@Retention(RetentionPolicy.RUNTIME)
+@Target(ElementType.TYPE)
+@Inherited
+public @interface Sort {
 
-    @Override
-    public boolean include(String className) {
-        return className.endsWith("ITCase");
-    }
+    public SortBy value() default SortBy.TESTNAME;
 
-    @Override
-    public boolean include(Class cls) {
-        return cls.getAnnotation(Slow.class) == null;
-    }
 }

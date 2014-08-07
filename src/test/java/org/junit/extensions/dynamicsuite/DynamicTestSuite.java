@@ -22,6 +22,7 @@ import org.junit.runner.RunWith;
 @RunWith(DynamicSuite.class)
 @Filter(DynamicTestSuite.class)
 @Directory
+@Sort(SortBy.RANDOM)
 public class DynamicTestSuite extends DefaultFilter {
 
     @Override

@@ -1,6 +1,7 @@
 package org.junit.extensions.dynamicsuite.suite;
 
 import org.junit.extensions.dynamicsuite.Filter;
+import org.junit.extensions.dynamicsuite.Sort;
 import org.junit.extensions.dynamicsuite.TestClassFilter;
 import org.junit.extensions.dynamicsuite.engine.ClassScanner;
 import org.junit.extensions.dynamicsuite.engine.ScannerFactory;
@@ -13,6 +14,8 @@ import org.junit.runners.model.RunnerBuilder;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.logging.Logger;
 
@@ -75,10 +78,35 @@ public class DynamicSuite extends ParentRunner<Runner> {
                     filterByClass(name);
                 }
             }
+            Sort sortAnnotation = testedClass.getAnnotation(Sort.class);
+            if (sortAnnotation != null) {
+                switch (sortAnnotation.value()) {
+                    case TESTNAME:
+                        doSortByName();
+                        break;
+                    case RANDOM:
+                        doSortByRandom();
+                        break;
+                }
+
+            }
         } catch (Exception e) {
             throw new InitializationError(e);
         }
 
+    }
+
+    private void doSortByRandom() {
+        Collections.shuffle(filteredClasses, new java.util.Random(System.currentTimeMillis()));
+    }
+
+    private void doSortByName() {
+        Collections.sort(filteredClasses, new Comparator<Class<?>>() {
+            @Override
+            public int compare(Class<?> o1, Class<?> o2) {
+                return o1.getSimpleName().compareTo(o2.getSimpleName());
+            }
+        });
     }
 
 

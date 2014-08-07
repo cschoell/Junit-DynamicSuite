@@ -1,10 +1,12 @@
-package org.junit.extensions.dynamicsuite;
+package org.junit.extensions.dynamicsuite.tests;
 
-import org.junit.extensions.dynamicsuite.suite.DynamicSuite;
+import org.junit.Assert;
+import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.junit.runners.JUnit4;
 
 /**
- * Copyright 2011 Christof Schoell
+ * Copyright 14.07.11 Chris
  * <p/>
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,19 +20,11 @@ import org.junit.runner.RunWith;
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-@RunWith(DynamicSuite.class)
-@Filter(IntegrationSuite.class)
-@Directory("target/test-classes")
-@Sort(SortBy.TESTNAME)
-public class IntegrationSuite implements TestClassFilter {
+@RunWith(JUnit4.class)
+public class AnotherITCase {
 
-    @Override
-    public boolean include(String className) {
-        return className.endsWith("ITCase");
-    }
-
-    @Override
-    public boolean include(Class cls) {
-        return cls.getAnnotation(Slow.class) == null;
+    @Test
+    public void testIntegration() throws Exception {
+        Assert.assertTrue(true);
     }
 }
