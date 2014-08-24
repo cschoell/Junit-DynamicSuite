@@ -1,5 +1,8 @@
 package org.junit.extensions.dynamicsuite;
 
+import org.junit.extensions.dynamicsuite.sort.RandomSort;
+import org.junit.extensions.dynamicsuite.sort.TestSort;
+
 import java.lang.annotation.*;
 
 /**
@@ -24,5 +27,7 @@ import java.lang.annotation.*;
 public @interface Sort {
 
     public SortBy value() default SortBy.TESTNAME;
+
+    public Class<? extends TestSort> customSort() default TestSort.class;
 
 }

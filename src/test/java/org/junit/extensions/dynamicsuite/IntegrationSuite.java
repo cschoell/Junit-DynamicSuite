@@ -24,12 +24,12 @@ import org.junit.runner.RunWith;
 @Sort(SortBy.TESTNAME)
 public class IntegrationSuite implements TestClassFilter {
 
-    @Override
+
     public boolean include(String className) {
         return className.endsWith("ITCase");
     }
 
-    @Override
+
     public boolean include(Class cls) {
         return cls.getAnnotation(Slow.class) == null;
     }

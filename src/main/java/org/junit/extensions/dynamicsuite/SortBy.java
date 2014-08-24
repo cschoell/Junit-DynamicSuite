@@ -6,5 +6,5 @@ package org.junit.extensions.dynamicsuite;
  * Time: 09:57
  */
 public enum SortBy {
-    TESTNAME,RANDOM
+    TESTNAME, RANDOM, CUSTOM
 }

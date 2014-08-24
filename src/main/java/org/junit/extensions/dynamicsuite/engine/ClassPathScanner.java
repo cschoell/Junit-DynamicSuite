@@ -39,7 +39,6 @@ public class ClassPathScanner implements ClassScanner {
 
     }
 
-    @Override
     public List<String> listClassNames() {
         return foundClasses;
     }
