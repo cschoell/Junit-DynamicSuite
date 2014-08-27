@@ -43,29 +43,33 @@
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <junit.version>4.11</junit.version>
+    <commons-lang3.version>3.3.2</commons-lang3.version>
+    <commons-io.version>2.4</commons-io.version>
+    <mockito-all.version>1.9.5</mockito-all.version>
   </properties>
 
   <dependencies>
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
-      <version>4.11</version>
+      <version>${junit.version}</version>
     </dependency>
     <dependency>
       <groupId>org.apache.commons</groupId>
       <artifactId>commons-lang3</artifactId>
-      <version>3.3.2</version>
+      <version>${commons-lang3.version}</version>
     </dependency>
     <dependency>
       <groupId>commons-io</groupId>
       <artifactId>commons-io</artifactId>
-      <version>2.4</version>
+      <version>${commons-io.version}</version>
       <scope>test</scope>
     </dependency>
     <dependency>
       <groupId>org.mockito</groupId>
       <artifactId>mockito-all</artifactId>
-      <version>1.9.5</version>
+      <version>${mockito-all.version}</version>
       <scope>test</scope>
     </dependency>
   </dependencies>
@@ -95,6 +99,7 @@
               <Bundle-Version>${project.version}.qualifier</Bundle-Version>
               <Bundle-Vendor>Christof Schoell</Bundle-Vendor>
               <Bundle-RequiredExecutionEnvironment>JavaSE-1.6</Bundle-RequiredExecutionEnvironment>
+              <Require-Bundle>org.junit;bundle-version="${junit.version}", org.apache.commons.lang3;bundle-version="${commons-lang3.version}"</Require-Bundle>
               <Export-Package>org.junit.extensions.dynamicsuite, org.junit.extensions.dynamicsuite.suite,
                 org.junit.extensions.dynamicsuite.filter, org.junit.extensions.dynamicsuite.sort
               </Export-Package>
