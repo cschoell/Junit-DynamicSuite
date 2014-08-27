@@ -1,6 +1,5 @@
 package org.junit.extensions.dynamicsuite;
 
-import org.junit.extensions.dynamicsuite.sort.RandomSort;
 import org.junit.extensions.dynamicsuite.sort.TestSort;
 
 import java.lang.annotation.*;
