@@ -8,13 +8,13 @@ import java.util.List;
 
 /**
  * Copyright 2014 Christof Schöll
- *
+ * <p/>
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- *
- *   http://www.apache.org/licenses/LICENSE-2.0
- *
+ * <p/>
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * <p/>
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -23,7 +23,7 @@ import java.util.List;
  */
 public class DirectoryScanner implements ClassScanner {
 
-	public static final String CLASS_ENDING = ".class";
+    public static final String CLASS_ENDING = ".class";
     public static final String SOURCE_ENDING = ".java";
 
     private final File basePath;
@@ -50,7 +50,7 @@ public class DirectoryScanner implements ClassScanner {
             String basePathName = basePath.getAbsolutePath();
             String className = current.getAbsolutePath();
             String classNameLc = className.toLowerCase();
-			if (classNameLc.endsWith(CLASS_ENDING) || classNameLc.endsWith(SOURCE_ENDING)) {
+            if (classNameLc.endsWith(CLASS_ENDING) || classNameLc.endsWith(SOURCE_ENDING)) {
                 className = extractClassName(basePathName, className);
                 foundClassNames.add(className);
             }

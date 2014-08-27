@@ -59,7 +59,7 @@ public class ClassPathScanner implements ClassScanner {
         StringTokenizer tokenizer = new StringTokenizer(classpath, separator);
         List<String> classPathEntries = new ArrayList<String>();
 
-        while(tokenizer.hasMoreElements()) {
+        while (tokenizer.hasMoreElements()) {
             String entry = tokenizer.nextToken();
             classPathEntries.add(entry);
         }
@@ -109,12 +109,11 @@ public class ClassPathScanner implements ClassScanner {
 
     private JarFile loadJarFile(File jarFile) {
         try {
-            URL jarURL = new URL ("file:" + jarFile.getCanonicalPath ());
-            jarURL = new URL("jar:" + jarURL.toExternalForm () + "!/");
-			JarURLConnection conn = (JarURLConnection) jarURL.openConnection ();
-			return conn.getJarFile();
-		}
-		catch (Exception e) {
+            URL jarURL = new URL("file:" + jarFile.getCanonicalPath());
+            jarURL = new URL("jar:" + jarURL.toExternalForm() + "!/");
+            JarURLConnection conn = (JarURLConnection) jarURL.openConnection();
+            return conn.getJarFile();
+        } catch (Exception e) {
             return null;
         }
     }
