@@ -42,6 +42,7 @@ You may use the Annotation @Sort to sort the tests by TestName or Randomize them
 
   @Sort(SortBy.TESTNAME) //sort by Name of Test
   @Sort(SortBy.RANDOM) //run Tests in a random order
+  @Sort(value = SortBy.CUSTOM, customSort=<<class implementing TestSort>>.class)
 
 === Example
 
