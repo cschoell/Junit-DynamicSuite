@@ -52,7 +52,7 @@ You can let the dynamic suite directly implement the TestClassFilter interface a
     @Filter(IntegrationSuite.class)
     @Directory("test/out")
     @Sort(SortBy.RANDOM)
-    public class IntegrationSuite implements TestDirectoryFilter {
+    public class IntegrationSuite implements TestClassFilter {
 
         @Override
         public boolean include(String className) {
