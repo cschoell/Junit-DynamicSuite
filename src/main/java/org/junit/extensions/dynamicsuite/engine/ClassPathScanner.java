@@ -13,7 +13,7 @@ import java.util.jar.JarEntry;
 import java.util.jar.JarFile;
 
 /**
- * Copyright 2011 Christof Schoell
+ * Copyright 2014 Christof Schoell
  * <p/>
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -39,7 +39,6 @@ public class ClassPathScanner implements ClassScanner {
 
     }
 
-    @Override
     public List<String> listClassNames() {
         return foundClasses;
     }
@@ -60,7 +59,7 @@ public class ClassPathScanner implements ClassScanner {
         StringTokenizer tokenizer = new StringTokenizer(classpath, separator);
         List<String> classPathEntries = new ArrayList<String>();
 
-        while(tokenizer.hasMoreElements()) {
+        while (tokenizer.hasMoreElements()) {
             String entry = tokenizer.nextToken();
             classPathEntries.add(entry);
         }
@@ -110,12 +109,11 @@ public class ClassPathScanner implements ClassScanner {
 
     private JarFile loadJarFile(File jarFile) {
         try {
-            URL jarURL = new URL ("file:" + jarFile.getCanonicalPath ());
-            jarURL = new URL("jar:" + jarURL.toExternalForm () + "!/");
-			JarURLConnection conn = (JarURLConnection) jarURL.openConnection ();
-			return conn.getJarFile();
-		}
-		catch (Exception e) {
+            URL jarURL = new URL("file:" + jarFile.getCanonicalPath());
+            jarURL = new URL("jar:" + jarURL.toExternalForm() + "!/");
+            JarURLConnection conn = (JarURLConnection) jarURL.openConnection();
+            return conn.getJarFile();
+        } catch (Exception e) {
             return null;
         }
     }

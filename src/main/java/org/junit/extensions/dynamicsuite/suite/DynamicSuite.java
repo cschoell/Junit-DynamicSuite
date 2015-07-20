@@ -1,9 +1,14 @@
 package org.junit.extensions.dynamicsuite.suite;
 
 import org.junit.extensions.dynamicsuite.Filter;
+import org.junit.extensions.dynamicsuite.Sort;
+import org.junit.extensions.dynamicsuite.SortBy;
 import org.junit.extensions.dynamicsuite.TestClassFilter;
 import org.junit.extensions.dynamicsuite.engine.ClassScanner;
 import org.junit.extensions.dynamicsuite.engine.ScannerFactory;
+import org.junit.extensions.dynamicsuite.sort.RandomSort;
+import org.junit.extensions.dynamicsuite.sort.TestNameSort;
+import org.junit.extensions.dynamicsuite.sort.TestSort;
 import org.junit.runner.Description;
 import org.junit.runner.Runner;
 import org.junit.runner.notification.RunNotifier;
@@ -12,12 +17,11 @@ import org.junit.runners.model.InitializationError;
 import org.junit.runners.model.RunnerBuilder;
 
 import java.io.File;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 import java.util.logging.Logger;
 
 /**
- * Copyright 2011 Christof Schoell
+ * Copyright 2014 Christof Schoell
  * <p/>
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -42,6 +46,9 @@ public class DynamicSuite extends ParentRunner<Runner> {
 
     private TestClassFilter filter;
 
+    private Map<SortBy, Class<? extends TestSort>> sortByClassMap = new HashMap<SortBy, Class<? extends TestSort>>();
+
+
     private File basePath;
 
     /**
@@ -52,6 +59,8 @@ public class DynamicSuite extends ParentRunner<Runner> {
      */
     protected DynamicSuite(Class<?> testClass) throws InitializationError {
         super(testClass);
+        sortByClassMap.put(SortBy.RANDOM, RandomSort.class);
+        sortByClassMap.put(SortBy.TESTNAME, TestNameSort.class);
     }
 
     public DynamicSuite(Class<?> klass, RunnerBuilder builder) throws InitializationError {
@@ -64,9 +73,8 @@ public class DynamicSuite extends ParentRunner<Runner> {
     }
 
     private void loadTestClasses() throws InitializationError {
-        ClassScanner scanner = null;
         try {
-            scanner = ScannerFactory.getInstance().createScanner(testedClass);
+            ClassScanner scanner = ScannerFactory.getInstance().createScanner(testedClass);
 
             List<String> classNames = scanner.listClassNames();
             for (String name : classNames) {
@@ -75,10 +83,23 @@ public class DynamicSuite extends ParentRunner<Runner> {
                     filterByClass(name);
                 }
             }
+            doSort();
         } catch (Exception e) {
             throw new InitializationError(e);
         }
 
+    }
+
+    private void doSort() throws InstantiationException, IllegalAccessException {
+        Sort sortAnnotation = testedClass.getAnnotation(Sort.class);
+        if (sortAnnotation != null) {
+            Class sortClass = sortAnnotation.customSort();
+            if (sortAnnotation.value() != SortBy.CUSTOM) {
+                sortClass = sortByClassMap.get(sortAnnotation.value());
+            }
+            TestSort sorter = (TestSort) sortClass.newInstance();
+            sorter.sort(filteredClasses);
+        }
     }
 
 

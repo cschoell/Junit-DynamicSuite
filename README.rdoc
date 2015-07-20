@@ -34,6 +34,16 @@ The Parameter includeJars allows you to control wether to scan the jars on the c
 To create a custom filter you may either implement the interface TestClassFilter or
 extend the DefaultFilter.
 
+=== Other Options
+
+Available with Version 0.2.3:
+
+You may use the Annotation @Sort to sort the tests by TestName or Randomize them.
+
+  @Sort(SortBy.TESTNAME) //sort by Name of Test
+  @Sort(SortBy.RANDOM) //run Tests in a random order
+  @Sort(value = SortBy.CUSTOM, customSort=<<class implementing TestSort>>.class)
+
 === Example
 
 You can let the dynamic suite directly implement the TestClassFilter interface as shown below.
@@ -41,7 +51,8 @@ You can let the dynamic suite directly implement the TestClassFilter interface a
     @RunWith(DynamicSuite.class)
     @Filter(IntegrationSuite.class)
     @Directory("test/out")
-    public class IntegrationSuite implements TestDirectoryFilter {
+    @Sort(SortBy.RANDOM)
+    public class IntegrationSuite implements TestClassFilter {
 
         @Override
         public boolean include(String className) {
