@@ -94,6 +94,7 @@
 			<Bundle-Version>0.2.3.qualifier</Bundle-Version>
 			<Bundle-Vendor>Christof Schoell</Bundle-Vendor>
 			<Bundle-RequiredExecutionEnvironment>JavaSE-1.6</Bundle-RequiredExecutionEnvironment>
+			<Require-Bundle>org.junit;bundle-version="4.8.0", org.apache.commons.lang3;bundle-version="3.1.0"</Require-Bundle>
 			<Export-Package>org.junit.extensions.dynamicsuite, org.junit.extensions.dynamicsuite.suite, org.junit.extensions.dynamicsuite.filter</Export-Package>
 		  </manifestEntries>
 	  	</archive>
