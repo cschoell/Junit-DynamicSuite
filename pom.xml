@@ -47,6 +47,8 @@
     <commons-lang3.version>3.3.2</commons-lang3.version>
     <commons-io.version>2.4</commons-io.version>
     <mockito-all.version>1.9.5</mockito-all.version>
+	<timestamp>${maven.build.timestamp}</timestamp>
+	<maven.build.timestamp.format>yyyyMMddHHmmss</maven.build.timestamp.format>
   </properties>
 
   <dependencies>
@@ -87,6 +89,27 @@
       </plugin>
 
       <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>build-helper-maven-plugin</artifactId>
+        <version>1.7</version>
+        <executions>
+          <execution>
+            <id>regex-property</id>
+            <goals>
+              <goal>regex-property</goal>
+            </goals>
+            <configuration>
+              <name>projectBaseVersion</name>
+              <value>${project.version}</value>
+              <regex>^(.*?)(-SNAPSHOT)?$</regex>
+              <replacement>$1</replacement>
+              <failIfNoMatch>true</failIfNoMatch>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+
+      <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-jar-plugin</artifactId>
         <version>2.4</version>
@@ -96,13 +119,11 @@
               <Bundle-ManifestVersion>2</Bundle-ManifestVersion>
               <Bundle-Name>JUnit Dynamicsuite</Bundle-Name>
               <Bundle-SymbolicName>org.junit.extensions.dynamicsuite</Bundle-SymbolicName>
-              <Bundle-Version>${project.version}.qualifier</Bundle-Version>
+              <Bundle-Version>${projectBaseVersion}.${timestamp}</Bundle-Version>
               <Bundle-Vendor>Christof Schoell</Bundle-Vendor>
               <Bundle-RequiredExecutionEnvironment>JavaSE-1.6</Bundle-RequiredExecutionEnvironment>
               <Require-Bundle>org.junit;bundle-version="${junit.version}", org.apache.commons.lang3;bundle-version="${commons-lang3.version}"</Require-Bundle>
-              <Export-Package>org.junit.extensions.dynamicsuite, org.junit.extensions.dynamicsuite.suite,
-                org.junit.extensions.dynamicsuite.filter, org.junit.extensions.dynamicsuite.sort
-              </Export-Package>
+              <Export-Package>org.junit.extensions.dynamicsuite, org.junit.extensions.dynamicsuite.suite, org.junit.extensions.dynamicsuite.filter, org.junit.extensions.dynamicsuite.sort</Export-Package>
             </manifestEntries>
           </archive>
         </configuration>
