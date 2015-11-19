@@ -1,6 +1,7 @@
 package org.junit.extensions.dynamicsuite.engine;
 
 import org.junit.extensions.dynamicsuite.ClassPath;
+import org.junit.extensions.dynamicsuite.Directories;
 import org.junit.extensions.dynamicsuite.Directory;
 
 import java.io.File;
@@ -44,9 +45,20 @@ public class ScannerFactory {
 
         if (annotation != null) {
             return new DirectoryScanner(new File(annotation.value()));
+        } else {
+            Directories dirs = (Directories) filterAnnotatedClass.getAnnotation(Directories.class);
+            if (dirs != null) {
+                File[] paths = new File[dirs.value().length];
+                for (int i = 0; i < dirs.value().length; i++) {
+                    paths[i] = new File(dirs.value()[i]);
+                }
+                return new DirectoryScanner(paths);
+            }
         }
+
         return null;
     }
+
     private ClassScanner createClassPathScanner(Class filterAnnotatedClass) throws InstantiationException, IllegalAccessException {
         ClassPath annotation = (ClassPath) filterAnnotatedClass.getAnnotation(ClassPath.class);
 
