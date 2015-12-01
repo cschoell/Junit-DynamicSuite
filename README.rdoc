@@ -36,6 +36,13 @@ extend the DefaultFilter.
 
 === Other Options
 
+Available with Version 0.2.5:
+
+You may use the Annotation @Directories to search for test classes in multiple directories.
+
+  @Directories({"bin", "target/classes"})
+  @Directories({"src/test/java", "src/test/generated"})
+
 Available with Version 0.2.3:
 
 You may use the Annotation @Sort to sort the tests by TestName or Randomize them.
@@ -73,7 +80,7 @@ or include it in Maven (from Maven Central Repository):
     <dependency>
         <groupId>com.github.cschoell</groupId>
         <artifactId>junit-dynamicsuite</artifactId>
-        <version>0.2.2</version>
+        <version>0.2.5</version>
         <scope>test</scope>
     </dependency>
 

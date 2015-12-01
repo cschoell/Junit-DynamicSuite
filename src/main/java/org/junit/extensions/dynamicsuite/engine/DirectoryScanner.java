@@ -4,7 +4,9 @@ import org.apache.commons.lang3.StringUtils;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Copyright 2014 Christof Schöll
@@ -26,33 +28,41 @@ public class DirectoryScanner implements ClassScanner {
     public static final String CLASS_ENDING = ".class";
     public static final String SOURCE_ENDING = ".java";
 
-    private final File basePath;
-
-    private final List<String> foundClassNames = new ArrayList<String>();
+    private final List<String> foundClassNamesOrdered = new ArrayList<String>();
+    private final Set<String> foundClassNamesIndexed = new HashSet<String>();
 
     public DirectoryScanner(File basePath) {
-        this.basePath = basePath;
-        recursiveAdd(basePath);
+        recursiveAdd(basePath, basePath);
+    }
+
+    public DirectoryScanner(File[] basePaths) {
+        for (File basePath : basePaths) {
+            recursiveAdd(basePath, basePath);
+        }
     }
 
     @Override
     public List<String> listClassNames() {
-        return foundClassNames;
+        return foundClassNamesOrdered;
     }
 
-    protected void recursiveAdd(File current) {
+    protected void recursiveAdd(File base, File current) {
         if (current.isDirectory()) {
             File[] files = current.listFiles();
             for (File file : files) {
-                recursiveAdd(file);
+                recursiveAdd(base, file);
             }
         } else {
-            String basePathName = basePath.getAbsolutePath();
+            String basePathName = base.getAbsolutePath();
             String className = current.getAbsolutePath();
             String classNameLc = className.toLowerCase();
             if (classNameLc.endsWith(CLASS_ENDING) || classNameLc.endsWith(SOURCE_ENDING)) {
                 className = extractClassName(basePathName, className);
-                foundClassNames.add(className);
+                // with multiple search directories there might be duplicates
+                if(foundClassNamesIndexed.contains(className) == false) {
+                    foundClassNamesOrdered.add(className);
+                    foundClassNamesIndexed.add(className);
+                }
             }
         }
     }

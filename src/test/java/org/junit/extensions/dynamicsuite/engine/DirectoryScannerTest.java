@@ -1,6 +1,7 @@
 package org.junit.extensions.dynamicsuite.engine;
 
 import org.apache.commons.io.FileUtils;
+import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.junit.After;
 import org.junit.Before;
@@ -33,12 +34,21 @@ public class DirectoryScannerTest {
 
     private DirectoryScanner directoryScanner;
     private File basePath = new File("target" + separator + " testDirectoryLoader");
+    private File basePath2 = new File("target" + separator + " testDirectoryLoader2");
     private File outsideBasePath = new File("target" + separator + "testDirectoryLoaderOutside");
 
     private String[][] testFileList = new String[][]{
             {"abc" + separator + "def", "filename.class"},
             {"abc" + separator + "def", "anothername.class"},
             {"abc" + separator + "def", "SomeClass.java"},
+            {"abc" + separator + "def", "AnotherClass.java"},
+            {"empty", ""}
+    };
+    
+    private String[][] testFileList2 = new String[][]{
+            {"abc" + separator + "def", "somefile.class"},
+            {"abc" + separator + "def", "anothername.class"},
+            {"abc" + separator + "def", "AnyClass.java"},
             {"abc" + separator + "def", "AnotherClass.java"},
             {"empty", ""}
     };
@@ -52,13 +62,19 @@ public class DirectoryScannerTest {
     }
 
     private void createFileStructure() throws IOException {
-        basePath.mkdirs();
         outsideBasePath.mkdirs();
 
-        for (String[] testFile : testFileList) {
+        createFiles(basePath, testFileList);
+        createFiles(basePath2, testFileList2);
+    }
+
+    private void createFiles(File base, String[][] fileList) throws IOException {
+        base.mkdirs();
+
+        for (String[] testFile : fileList) {
             String path = testFile[0];
             String name = testFile[1];
-            File directory = new File(basePath, path);
+            File directory = new File(base, path);
             directory.mkdirs();
             if (StringUtils.isNotBlank(name)) {
                 new File(directory, name).createNewFile();
@@ -70,14 +86,17 @@ public class DirectoryScannerTest {
     public void tearDown() throws Exception {
         FileUtils.deleteQuietly(basePath);
         FileUtils.deleteQuietly(outsideBasePath);
-
     }
 
     @Test
     public void testClassNamesCorrectlyRead() throws Exception {
-        List<String> classNames = directoryScanner.listClassNames();
+        checkClassNamesCorrectlyRead(directoryScanner, testFileList, 0);
+    }
+
+    private void checkClassNamesCorrectlyRead(DirectoryScanner scanner, String[][] testFiles, int expectedDuplicates) {
         int expectedFileCount = 0;
-        for (String[] testFile : testFileList) {
+        List<String> classNames = scanner.listClassNames();
+        for (String[] testFile : testFiles) {
             String path = testFile[0];
             String name = testFile[1];
             if (StringUtils.isNotBlank(name)) {
@@ -86,7 +105,14 @@ public class DirectoryScannerTest {
                 expectedFileCount++;
             }
         }
-        assertEquals(expectedFileCount, directoryScanner.listClassNames().size());
+        assertEquals(expectedFileCount - expectedDuplicates, scanner.listClassNames().size());
+    }
+
+    @Test
+    public void testMultiDirClassNamesCorrectlyRead() throws Exception {
+        DirectoryScanner dirScanner = new DirectoryScanner(new File[] {basePath, basePath2});
+        String[][] allTestFiles = ArrayUtils.addAll(testFileList, testFileList2);
+        checkClassNamesCorrectlyRead(dirScanner, allTestFiles, 2);
     }
 
     private String toClassName(String path, String name) {
