@@ -49,8 +49,10 @@ public class DirectoryScanner implements ClassScanner {
     protected void recursiveAdd(File base, File current) {
         if (current.isDirectory()) {
             File[] files = current.listFiles();
-            for (File file : files) {
-                recursiveAdd(base, file);
+            if (files != null) {
+                for (File file : files) {
+					recursiveAdd(base, file);
+				}
             }
         } else {
             String basePathName = base.getAbsolutePath();
@@ -59,7 +61,7 @@ public class DirectoryScanner implements ClassScanner {
             if (classNameLc.endsWith(CLASS_ENDING) || classNameLc.endsWith(SOURCE_ENDING)) {
                 className = extractClassName(basePathName, className);
                 // with multiple search directories there might be duplicates
-                if(foundClassNamesIndexed.contains(className) == false) {
+                if(!foundClassNamesIndexed.contains(className)) {
                     foundClassNamesOrdered.add(className);
                     foundClassNamesIndexed.add(className);
                 }

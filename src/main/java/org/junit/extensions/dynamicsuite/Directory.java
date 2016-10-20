@@ -21,5 +21,5 @@ import java.lang.annotation.*;
 @Target(ElementType.TYPE)
 @Inherited
 public @interface Directory {
-    public String value() default "target/test-classes";
+    String value() default "target/test-classes";
 }

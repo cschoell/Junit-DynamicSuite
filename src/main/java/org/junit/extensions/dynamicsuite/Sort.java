@@ -25,8 +25,8 @@ import java.lang.annotation.*;
 @Inherited
 public @interface Sort {
 
-    public SortBy value() default SortBy.TESTNAME;
+    SortBy value() default SortBy.TESTNAME;
 
-    public Class<? extends TestSort> customSort() default TestSort.class;
+    Class<? extends TestSort> customSort() default TestSort.class;
 
 }

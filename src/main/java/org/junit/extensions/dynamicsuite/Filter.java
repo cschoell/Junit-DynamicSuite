@@ -22,6 +22,6 @@ import java.lang.annotation.*;
 @Inherited
 public @interface Filter {
 
-    public Class<? extends TestClassFilter> value();
+    Class<? extends TestClassFilter> value();
 
 }
