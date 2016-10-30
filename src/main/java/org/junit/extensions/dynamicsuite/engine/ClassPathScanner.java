@@ -1,20 +1,15 @@
 package org.junit.extensions.dynamicsuite.engine;
 
-import org.apache.commons.lang3.StringUtils;
+import io.github.lukehutch.fastclasspathscanner.FastClasspathScanner;
 
 import java.io.File;
-import java.io.IOException;
 import java.net.JarURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.Enumeration;
 import java.util.List;
 import java.util.StringTokenizer;
-import java.util.jar.Attributes;
-import java.util.jar.JarEntry;
 import java.util.jar.JarFile;
-import java.util.jar.Manifest;
 
 /**
  * Copyright 2014 Christof Schoell
@@ -35,15 +30,9 @@ public class ClassPathScanner implements ClassScanner {
 
     private final boolean includeJars;
     private List<String> foundClasses = new ArrayList<String>();
-    private String[] metaClasspathToInclude;
 
     public ClassPathScanner(boolean includeJars) {
-        this(includeJars, new String[0]);
-    }
-
-    public ClassPathScanner(boolean includeJars, String[] metaClasspathToInclude) {
         this.includeJars = includeJars;
-        this.metaClasspathToInclude = metaClasspathToInclude;
         init();
 
     }
@@ -57,48 +46,16 @@ public class ClassPathScanner implements ClassScanner {
     }
 
     private void init() {
-        List<String> classPathEntries = getClassPathEntries();
+        final List<String> classPathEntries = getClassPathEntries();
         scanForClasses(classPathEntries);
     }
 
     private List<String> getClassPathEntries() {
+
         String separator = getPathSeparator();
         String classpath = getClassPathString();
         List<String> classPathEntries = new ArrayList<String>();
-        classPathEntries = addCPFromJarMetaInf(classPathEntries);
         return addFromCPString(separator, classpath, classPathEntries, null);
-    }
-
-    private List<String> addCPFromJarMetaInf(List<String> classPathEntries) {
-        for (String cpMetaJar : metaClasspathToInclude) {
-            File found = findCPMetaJarFile(cpMetaJar);
-            JarFile jarFile = loadJarFile(found);
-            try {
-                if (jarFile == null || jarFile.getManifest() == null || jarFile.getManifest().getEntries() == null) {
-                    System.err.println("Could not read Jar File " + cpMetaJar + " to get Meta Class-Path from");
-                } else {
-                    Manifest manifest = jarFile.getManifest();
-                    Attributes attributes = manifest.getMainAttributes();
-                    String cpToAdd = attributes.getValue(Attributes.Name.CLASS_PATH);
-                    addFromCPString(" ", cpToAdd, classPathEntries, new File(cpMetaJar).getParentFile());
-                }
-
-            } catch (IOException e) {
-                System.err.println("Could not read Jar File " + cpMetaJar + " to get ClassPath from META-INF");
-            }
-        }
-        return classPathEntries;
-    }
-
-    private File findCPMetaJarFile(String cpMetaJar) {
-        URL resource = getClass().getClassLoader().getResource(cpMetaJar);
-        File found = null;
-        if (resource != null && resource.getFile() != null) {
-            found = new File(resource.getFile());
-        } else {
-            found = new File(findAbsoluteOrRelative(new File(""), cpMetaJar));
-        }
-        return found;
     }
 
     private List<String> addFromCPString(String separator, String classpath, List<String> classPathEntries, File parentFile) {
@@ -137,44 +94,24 @@ public class ClassPathScanner implements ClassScanner {
     }
 
     private void scanForClasses(List<String> classPathEntries) {
-        for (String entry : classPathEntries) {
-            File entryFile = new File(entry);
-            if (entryFile.isDirectory()) {
-                addDirectory(entryFile);
-            } else if (includeJars) {
-                addJar(entryFile);
+
+
+        if (includeJars) {
+            FastClasspathScanner fastClasspathScanner = new FastClasspathScanner();
+            foundClasses = fastClasspathScanner.scan().getNamesOfAllClasses();
+        } else {
+            for (String entry : classPathEntries) {
+                File entryFile = new File(entry);
+                if (entryFile.isDirectory()) {
+                    addDirectory(entryFile);
+                }
             }
-
-
         }
     }
 
     private void addDirectory(File entryFile) {
         DirectoryScanner directoryScanner = new DirectoryScanner(entryFile);
         foundClasses.addAll(directoryScanner.listClassNames());
-    }
-
-    private void addJar(File fromFile) {
-
-        JarFile jar = loadJarFile(fromFile);
-
-        if (jar != null) {
-            loadJarEntries(jar);
-        }
-    }
-
-    private void loadJarEntries(JarFile jar) {
-        Enumeration<JarEntry> entries = jar.entries();
-        while (entries.hasMoreElements()) {
-
-            JarEntry element = entries.nextElement();
-            String name = element.getName();
-            if (name.toLowerCase().endsWith(".class")) {
-                String className = StringUtils.replace(name, "/", ".");
-                className = StringUtils.removeEnd(className, ".class");
-                foundClasses.add(className);
-            }
-        }
     }
 
     private JarFile loadJarFile(File jarFile) {

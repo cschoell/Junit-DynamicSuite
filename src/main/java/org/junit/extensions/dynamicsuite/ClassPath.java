@@ -23,5 +23,4 @@ import java.lang.annotation.*;
 public @interface ClassPath {
 
     boolean includeJars() default false;
-    String[] includedMetaClasspathJar() default {};
 }

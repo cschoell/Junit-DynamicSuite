@@ -24,7 +24,7 @@ This will run all Tests ending with "Test" in the directory
 
 which is specified as default in the Directory Annotation.
 
-Instead of using @Directory you might aswell use
+Instead of using @Directory you might use as well
 
    @ClassPath(includeJars = true)
 

@@ -48,6 +48,7 @@
     <mockito-all.version>1.9.5</mockito-all.version>
 	<timestamp>${maven.build.timestamp}</timestamp>
 	<maven.build.timestamp.format>yyyyMMddHHmmss</maven.build.timestamp.format>
+    <fast-classpath-scanner.version>2.0.5</fast-classpath-scanner.version>
   </properties>
 
   <dependencies>
@@ -55,6 +56,11 @@
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
       <version>${junit.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>io.github.lukehutch</groupId>
+      <artifactId>fast-classpath-scanner</artifactId>
+      <version>${fast-classpath-scanner.version}</version>
     </dependency>
     <dependency>
       <groupId>org.apache.commons</groupId>
@@ -107,24 +113,18 @@
           </execution>
         </executions>
       </plugin>
-
       <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-jar-plugin</artifactId>
-        <version>2.4</version>
+        <groupId>org.apache.felix</groupId>
+        <artifactId>maven-bundle-plugin</artifactId>
+        <version>3.2.0</version>
+        <extensions>true</extensions>
         <configuration>
-          <archive>
-            <manifestEntries>
-              <Bundle-ManifestVersion>2</Bundle-ManifestVersion>
-              <Bundle-Name>JUnit Dynamicsuite</Bundle-Name>
-              <Bundle-SymbolicName>org.junit.extensions.dynamicsuite</Bundle-SymbolicName>
-              <Bundle-Version>${projectBaseVersion}.${timestamp}</Bundle-Version>
-              <Bundle-Vendor>Christof Schoell</Bundle-Vendor>
-              <Bundle-RequiredExecutionEnvironment>JavaSE-1.6</Bundle-RequiredExecutionEnvironment>
-              <Require-Bundle>org.junit;bundle-version="${junit.version}", org.apache.commons.lang3;bundle-version="${commons-lang3.version}"</Require-Bundle>
-              <Export-Package>org.junit.extensions.dynamicsuite, org.junit.extensions.dynamicsuite.suite, org.junit.extensions.dynamicsuite.filter, org.junit.extensions.dynamicsuite.sort</Export-Package>
-            </manifestEntries>
-          </archive>
+          <instructions>
+            <Bundle-Category>Test</Bundle-Category>
+            <Bundle-SymbolicName>${project.groupId}.${project.artifactId}</Bundle-SymbolicName>
+            <Bundle-Description>${project.description}</Bundle-Description>
+            <Bundle-Vendor>Christof Schoell</Bundle-Vendor>
+          </instructions>
         </configuration>
       </plugin>
       
