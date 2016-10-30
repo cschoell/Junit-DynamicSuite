@@ -53,31 +53,23 @@ public class ClassPathScanner implements ClassScanner {
         String separator = getPathSeparator();
         String classpath = getClassPathString();
         List<String> classPathEntries = new ArrayList<String>();
-        return addFromCPString(separator, classpath, classPathEntries, null);
+        return addFromCPString(separator, classpath, classPathEntries);
     }
 
-    private List<String> addFromCPString(String separator, String classpath, List<String> classPathEntries, File parentFile) {
+    private List<String> addFromCPString(String separator, String classpath, List<String> classPathEntries) {
         StringTokenizer tokenizer = new StringTokenizer(classpath, separator);
 
         while (tokenizer.hasMoreElements()) {
             String entry = tokenizer.nextToken();
-            entry = findAbsoluteOrRelative(parentFile, entry);
+            entry = findAbsoluteOrRelative(entry);
             classPathEntries.add(entry);
         }
         return classPathEntries;
     }
 
-    private String findAbsoluteOrRelative(File parentFile, String entry) {
+    private String findAbsoluteOrRelative(String entry) {
         String fromUrl = tryAsUrl(entry);
         if (fromUrl != null) return fromUrl;
-
-        if (parentFile != null) {
-            File file = new File(entry);
-            if (!file.exists()) {
-                file = new File(parentFile, entry);
-                entry = file.getAbsolutePath();
-            }
-        }
         return entry;
     }
 
