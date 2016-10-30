@@ -98,7 +98,7 @@ public class ClassPathScanner implements ClassScanner {
 
         if (includeJars) {
             FastClasspathScanner fastClasspathScanner = new FastClasspathScanner();
-            foundClasses = fastClasspathScanner.scan().getNamesOfAllClasses();
+            foundClasses = fastClasspathScanner.scan(4).getNamesOfAllClasses();
         } else {
             for (String entry : classPathEntries) {
                 File entryFile = new File(entry);
