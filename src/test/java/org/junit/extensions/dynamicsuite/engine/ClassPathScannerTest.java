@@ -48,8 +48,35 @@ public class ClassPathScannerTest {
         assertTrue(classes.contains(StringUtils.class.getName()));
     }
 
+    @Test
+    public void loadFromManifestCP() throws Exception {
+        List<String> classes = loadClasses(true, "target/test-classes/metajar.jar");
+        assertTrue(classes.contains("com.github.cschoell.FakeTest"));
+    }
+
+    @Test
+    public void loadFromManifestCP_noneFound() throws Exception {
+        List<String> classes = loadClasses(true, "metajarX.jar");
+        assertFalse(classes.contains("com.github.cschoell.FakeTest"));
+    }
+
+    @Test
+    public void loadFromManifestCP_jarFromClassPath() throws Exception {
+        List<String> classes = loadClasses(true, "metajar.jar");
+        assertTrue(classes.contains("com.github.cschoell.FakeTest"));
+    }
+    @Test
+    public void loadFromManifestCPRelativeToJar() throws Exception {
+        List<String> classes = loadClasses(true, "target/test-classes/metajar-relative.jar");
+        assertTrue(classes.contains("com.github.cschoell.FakeTest"));
+    }
+
     private List<String> loadClasses(boolean includeJars) {
-        ClassPathScanner scanner = new ClassPathScanner(includeJars);
+        return loadClasses(includeJars, new String[0]);
+    }
+
+    private List<String> loadClasses(boolean includeJars, String... cpJars) {
+        ClassPathScanner scanner = new ClassPathScanner(includeJars, cpJars);
         List<String> classes = scanner.listClassNames();
 
         assertNotNull(classes);

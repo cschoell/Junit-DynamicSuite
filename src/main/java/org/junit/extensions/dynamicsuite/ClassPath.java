@@ -21,5 +21,7 @@ import java.lang.annotation.*;
 @Target(ElementType.TYPE)
 @Inherited
 public @interface ClassPath {
+
     boolean includeJars() default false;
+    String[] includedMetaClasspathJar() default {};
 }
