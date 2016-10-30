@@ -3,13 +3,11 @@ package org.junit.extensions.dynamicsuite.engine;
 import io.github.lukehutch.fastclasspathscanner.FastClasspathScanner;
 
 import java.io.File;
-import java.net.JarURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.StringTokenizer;
-import java.util.jar.JarFile;
 
 /**
  * Copyright 2014 Christof Schoell
@@ -112,17 +110,6 @@ public class ClassPathScanner implements ClassScanner {
     private void addDirectory(File entryFile) {
         DirectoryScanner directoryScanner = new DirectoryScanner(entryFile);
         foundClasses.addAll(directoryScanner.listClassNames());
-    }
-
-    private JarFile loadJarFile(File jarFile) {
-        try {
-            URL jarURL = new URL("file:" + jarFile.getCanonicalPath());
-            jarURL = new URL("jar:" + jarURL.toExternalForm() + "!/");
-            JarURLConnection conn = (JarURLConnection) jarURL.openConnection();
-            return conn.getJarFile();
-        } catch (Exception e) {
-            return null;
-        }
     }
 
     protected String getClassPathString() {
