@@ -138,6 +138,7 @@
               <include>**/*Test.java</include>
               <include>**/*Suite.java</include>
           </includes>
+	  <useSystemClassLoader>false</useSystemClassLoader>
         </configuration>
       </plugin>
     </plugins>
