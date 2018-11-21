@@ -1,4 +1,5 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>com.github.cschoell</groupId>
@@ -43,11 +44,11 @@
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <junit.version>4.12</junit.version>
-    <commons-lang3.version>3.3.2</commons-lang3.version>
-    <commons-io.version>2.4</commons-io.version>
-    <mockito-all.version>1.9.5</mockito-all.version>
-	<timestamp>${maven.build.timestamp}</timestamp>
-	<maven.build.timestamp.format>yyyyMMddHHmmss</maven.build.timestamp.format>
+    <commons-lang3.version>3.8.1</commons-lang3.version>
+    <commons-io.version>2.6</commons-io.version>
+    <mockito-core.version>2.23.4</mockito-core.version>
+    <timestamp>${maven.build.timestamp}</timestamp>
+    <maven.build.timestamp.format>yyyyMMddHHmmss</maven.build.timestamp.format>
     <fast-classpath-scanner.version>2.0.5</fast-classpath-scanner.version>
   </properties>
 
@@ -75,8 +76,8 @@
     </dependency>
     <dependency>
       <groupId>org.mockito</groupId>
-      <artifactId>mockito-all</artifactId>
-      <version>${mockito-all.version}</version>
+      <artifactId>mockito-core</artifactId>
+      <version>${mockito-core.version}</version>
       <scope>test</scope>
     </dependency>
   </dependencies>
@@ -127,18 +128,18 @@
           </instructions>
         </configuration>
       </plugin>
-      
+
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-surefire-plugin</artifactId>
         <version>2.16</version>
-    
+
         <configuration>
           <includes>
-              <include>**/*Test.java</include>
-              <include>**/*Suite.java</include>
+            <include>**/*Test.java</include>
+            <include>**/*Suite.java</include>
           </includes>
-	  <useSystemClassLoader>false</useSystemClassLoader>
+          <useSystemClassLoader>false</useSystemClassLoader>
         </configuration>
       </plugin>
     </plugins>
